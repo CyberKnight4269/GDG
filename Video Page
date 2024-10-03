@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Page with Interactions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-blue-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="text-center bg-gradient-to-r from-blue-500 to-blue-700 p-6">
+    <h1 class="text-5xl text-white font-bold">VIDEOS</h1>
+  </header>
+
+  <!-- Recent Video Section -->
+  <section class="max-w-6xl mx-auto my-8 px-4">
+    <div class="flex justify-center items-center mb-6">
+      <h2 class="text-4xl font-bold relative inline-block">
+        RECENTS
+        <!-- Decorative Icons (replace with your preferred icons) -->
+        <span class="absolute top-0 right-[-20px] text-green-500">✿</span>
+        <span class="absolute bottom-0 left-[-20px] text-red-500">✿</span>
+      </h2>
+    </div>
+    <div id="recent-video" class="bg-white shadow-lg p-6 rounded-lg flex flex-col items-center transition-all duration-500 ease-in-out transform hover:scale-105" style="max-width: 100%; aspect-ratio: 16/9;">
+      <!-- Default Opening Ceremony Live Stream -->
+      <iframe id="recent-iframe" class="rounded-lg mb-4 w-full h-auto" src="https://www.youtube.com/embed/wyDo9MR-JzA?autoplay=0" frameborder="0" allowfullscreen style="aspect-ratio: 16/9;"></iframe>
+      <h3 id="recent-title" class="text-2xl font-semibold">Opening Ceremony (Live Event)</h3>
+      <p id="recent-description" class="text-gray-600 text-center mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </section>
+
+  <!-- More Videos Section -->
+  <section class="max-w-6xl mx-auto my-8 px-4">
+    <h3 class="text-2xl font-bold mb-4 text-center">WATCH MORE VIDEOS</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <!-- Video Cards with YouTube Data -->
+      <div class="video-card" data-video-url="https://www.youtube.com/embed/wyDo9MR-JzA?autoplay=1" data-title="Talks" data-description="Interesting talks on tech and more." data-image-url="1_yOUr9_x3zhV2iBxGC-AerQ.webp">
+        <img src="1_yOUr9_x3zhV2iBxGC-AerQ.webp" alt="Talks Thumbnail" class="rounded-lg hover:opacity-80 cursor-pointer">
+        <h4 class="text-lg font-semibold mt-2 text-center text-green-600">TALKS</h4>
+      </div>
+      <div class="video-card" data-video-url="https://www.youtube.com/embed/ysz5S6PUM-U?autoplay=1" data-title="Headline" data-description="Catch the latest headlines." data-image-url="1_yOUr9_x3zhV2iBxGC-AerQ.webp">
+        <img src="1_yOUr9_x3zhV2iBxGC-AerQ.webp" alt="Headline Thumbnail" class="rounded-lg hover:opacity-80 cursor-pointer">
+        <h4 class="text-lg font-semibold mt-2 text-center text-yellow-500">HEADLINE</h4>
+      </div>
+      <div class="video-card" data-video-url="https://www.youtube.com/embed/OFHMRqTcNN-O7Ed-?autoplay=1" data-title="Event Recaps" data-description="Revisit the event highlights." data-image-url="1_yOUr9_x3zhV2iBxGC-AerQ.webp">
+        <img src="1_yOUr9_x3zhV2iBxGC-AerQ.webp" alt="Event Recaps Thumbnail" class="rounded-lg hover:opacity-80 cursor-pointer">
+        <h4 class="text-lg font-semibold mt-2 text-center text-red-500">EVENT RECAPS</h4>
+      </div>
+      <div class="video-card" data-video-url="https://www.youtube.com/embed/ZLZvBdVBUQE?autoplay=1" data-title="Workshops" data-description="Check out this amazing short video!" data-image-url="1_yOUr9_x3zhV2iBxGC-AerQ.webp">
+        <img src="1_yOUr9_x3zhV2iBxGC-AerQ.webp" alt="Workshops Thumbnail" class="rounded-lg hover:opacity-80 cursor-pointer">
+        <h4 class="text-lg font-semibold mt-2 text-center text-blue-500">WORKSHOPS</h4>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // JavaScript to swap videos and images
+    const recentIframe = document.getElementById('recent-iframe');
+    const recentTitle = document.getElementById('recent-title');
+    const recentDescription = document.getElementById('recent-description');
+    const videoCards = document.querySelectorAll('.video-card');
+
+    videoCards.forEach(card => {
+      card.addEventListener('click', () => {
+        // Get data from the clicked card
+        const newVideoUrl = card.getAttribute('data-video-url');
+        const newTitle = card.getAttribute('data-title');
+        const newDescription = card.getAttribute('data-description');
+        const newImageUrl = card.getAttribute('data-image-url');
+
+        // Store the current video info for swapping
+        const currentVideoUrl = recentIframe.src;
+        const currentTitle = recentTitle.innerText;
+        const currentDescription = recentDescription.innerText;
+
+        // Swap the video content in the "Recents" section
+        recentIframe.src = newVideoUrl; // Autoplay the new video
+        recentTitle.innerText = newTitle;
+        recentDescription.innerText = newDescription;
+
+        // Swap the clicked card's content with the recent video info
+        card.setAttribute('data-video-url', currentVideoUrl);
+        card.querySelector('img').src = newImageUrl;
+        card.querySelector('h4').innerText = newTitle;
+      });
+    });
+  </script>
+
+</body>
+</html>
